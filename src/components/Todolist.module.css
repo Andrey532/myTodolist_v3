@@ -1,0 +1,9 @@
+
+
+.active_btn  {
+  background-color: rgb(187, 191, 194);
+}
+
+.is_done {
+  opacity: 0.5;
+}
