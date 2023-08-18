@@ -2,6 +2,8 @@ import { FilterValuesType } from "../App";
 import React, { ChangeEvent } from "react";
 import { AddItemForm } from "./addItemForm/AddItemForm";
 import { EditableSpan } from "./editableSpan/EditableSpan";
+import IconButton from "@material-ui/core/IconButton/IconButton";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export type TaskType = {
   id: string;
@@ -43,15 +45,14 @@ export const Todolist = (props: PropsType) => {
   const onActiveClickHandler = () => props.changeFilter("active", props.id);
   const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
 
-  return (
-    <div>
+  return <div>
       <h3>
-        {" "}
         <EditableSpan oldTitle={props.title} onChange={changeTodolistTitle} />
-        <button onClick={removeTodolist}>x</button>
+        <IconButton aria-label="delete" onClick={removeTodolist}>
+                <DeleteIcon />
+                </IconButton>
       </h3>
       <AddItemForm addItem={addTask} />
-      <ul>
         {props.tasks.map((t) => {
           const onClickHandler = () => props.removeTask(t.id, props.id);
           const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -62,8 +63,7 @@ export const Todolist = (props: PropsType) => {
             props.changeTaskTitle(t.id, newValue, props.id);
           };
 
-          return (
-            <li key={t.id} className={t.isDone ? "is-done" : ""}>
+          return <div key={t.id} className={t.isDone ? "is-done" : ""}>
               <input
                 type="checkbox"
                 onChange={onChangeHandler}
@@ -71,13 +71,12 @@ export const Todolist = (props: PropsType) => {
               />
               <EditableSpan
                 oldTitle={t.title}
-                onChange={onTitleChangeHandler}
-              />
-              <button onClick={onClickHandler}>x</button>
-            </li>
-          );
+                onChange={onTitleChangeHandler}/>
+              <IconButton aria-label="delete" onClick={onClickHandler}>
+                <DeleteIcon />
+                </IconButton>
+            </div>
         })}
-      </ul>
       <div>
         <button
           className={props.filter === "all" ? "active-filter" : ""}
@@ -99,5 +98,4 @@ export const Todolist = (props: PropsType) => {
         </button>
       </div>
     </div>
-  );
 };

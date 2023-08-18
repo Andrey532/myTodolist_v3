@@ -4,11 +4,10 @@ import style from "./AddItemForm.module.css"
 
 type AddItemFormPropsType = {
   addItem: (title: string) => void;
-  
 }
 
 export const AddItemForm = (props:AddItemFormPropsType) => {
-  let [title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
