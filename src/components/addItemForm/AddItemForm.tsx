@@ -1,6 +1,6 @@
 import React from "react";
-import { ChangeEvent, useState, KeyboardEvent } from "react";
 import style from "./AddItemForm.module.css"
+import { ChangeEvent, useState, KeyboardEvent } from "react";
 
 type AddItemFormPropsType = {
   addItem: (title: string) => void;
@@ -27,15 +27,17 @@ export const AddItemForm = (props:AddItemFormPropsType) => {
       addTask();
     }
   };
+  
   return (
     <div>
       <input
         value={title}
         onChange={onChangeHandler}
         onKeyDown={onKeyDownHandler}
-        className={error ? style.error : ""}
-      />
+        className={error ? style.error : ""}/>
+
       <button onClick={addTask}>+</button>
+
       {error && <div className={style.error_message}>{error}</div>}
     </div>
   );
