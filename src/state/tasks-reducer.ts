@@ -2,8 +2,18 @@ import { v1 } from "uuid"
 import { TasksStateType } from "../App"
 import { addTodolistACType, removeTodolistACType } from "./todolists-reducer"
 
+const initialState: TasksStateType = {
+    ["todolistId1"]: [
+        { id: v1(), title: "HTML&CSS", isDone: true },
+        { id: v1(), title: "JS", isDone: true },
+    ],
+    ["todolistId2"]: [
+        { id: v1(), title: "Milk", isDone: true },
+        { id: v1(), title: "React", isDone: true },
+    ],
+};
 
-export const tasksReducer = (state: TasksStateType, action: TasksReducerActionType) => {
+export const tasksReducer = (state = initialState, action: TasksReducerActionType) => {
     switch (action.type) {
         case "REMOVE-TASK": {
             return {
@@ -42,7 +52,7 @@ export const tasksReducer = (state: TasksStateType, action: TasksReducerActionTy
             return rest
         }
         default:
-            throw new Error("I don't understand this type")
+            return state;
     }
 }
 
@@ -57,7 +67,7 @@ export type TasksReducerActionType =
 //actionsTypes
 export type RemoveTaskACType = ReturnType<typeof removeTaskAC>
 export type AddTaskACType = ReturnType<typeof addTaskAC>
-export type ChangeTaskStatusACType = ReturnType<typeof changeTaskAC>
+export type ChangeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>
 export type ChangeTaskTitleACType = ReturnType<typeof changeTaskTitleAC>
 
 //actionCreatures
@@ -81,7 +91,7 @@ export const addTaskAC = (title: string, todolistId: string) => {
     } as const
 }
 
-export const changeTaskAC = (taskId: string, isDone: boolean, todolistId: string) => {
+export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string) => {
     return {
         type: "CHANGE-TASK-STATUS",
         payload: {
