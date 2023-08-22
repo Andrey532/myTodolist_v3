@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import style from "./AddItemForm.module.css"
 import { ChangeEvent, useState, KeyboardEvent } from "react";
 
@@ -6,7 +6,8 @@ type AddItemFormPropsType = {
   addItem: (title: string) => void;
 }
 
-export const AddItemForm = (props:AddItemFormPropsType) => {
+export const AddItemForm = React.memo((props:AddItemFormPropsType) => {
+ 
   const [title, setTitle] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
@@ -22,7 +23,7 @@ export const AddItemForm = (props:AddItemFormPropsType) => {
   };
 
   const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(null);
+    if (error) setError(null);
     if (e.key === "Enter") {
       addTask();
     }
@@ -41,4 +42,4 @@ export const AddItemForm = (props:AddItemFormPropsType) => {
       {error && <div className={style.error_message}>{error}</div>}
     </div>
   );
-};
+});

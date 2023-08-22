@@ -1,3 +1,4 @@
+import React from "react";
 import { ChangeEvent, useState } from "react";
 
 type EditableSpanPropsType = {
@@ -5,7 +6,7 @@ type EditableSpanPropsType = {
   onChange: (title: string) => void;
 };
 
-export const EditableSpan = (props: EditableSpanPropsType) => {
+export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
   const [edit, setEdit] = useState(false);
   let [newTitle, setNewTitle] = useState<string>(props.oldTitle);
 
@@ -34,4 +35,4 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
             {props.oldTitle}</span>
       )}
     </>
-};
+})
